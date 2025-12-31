@@ -14,7 +14,7 @@ const Product = (props) => {
   return (
     <div className='bg-white p-4 rounded-xl shadow'>
       <ItemDescription name={props.name} description={props.description} price={props.price} />
-      <p className="font-bold mt-2 fs-lg text-red-500">Price : ${props.price}</p>
+      <p className="font-bold mt-2 fs-lg">Price : ${props.price}</p>
       <h2 className="font-bold mt-2">Count : {count}</h2>
       <div className="flex items-center gap-3 mt-4">
         <button className="px-4 py-1 bg-green-500 text-white rounded" onClick={increment}>+</button>
