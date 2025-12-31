@@ -1,10 +1,10 @@
-import React from "react";
-
-export default function ItemDescription({ name, description }) {
+const ItemDescription = (props) => {
   return (
     <div>
-      <h2> Name: {name} </h2>
-      <h2> Description: {description} </h2>
+      <h1>{props.name}</h1>
+      <p>{props.description}</p>
     </div>
-  );
+    )
 }
+
+export default ItemDescription;
