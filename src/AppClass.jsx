@@ -9,21 +9,20 @@ export default class AppClass extends Component {
     };
   }
 
-   increment = () => {
+  increment = () => {
+    this.setState((previousState) => ({
+      count: previousState.count + 1,
+    }));
+  };
+  decrement = () => {
     this.setState({
-        count : this.state.count + 1 ,
-    })
-   }
-   decrement= () => {
-    this.setState({
-        count : this.state.count - 1 ,
-    })
-   }
+      count: this.state.count - 1,
+    });
+  };
 
   render() {
-    const {count} = this.state;
+    const { count } = this.state;
     return (
-   
       <>
         <h1> My Counter App </h1>
         <h2> count: {count} </h2>
