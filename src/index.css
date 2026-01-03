@@ -5,6 +5,7 @@
 
   /* custom properties */
   --error-color: red;
+  --primary-color: #6366f1;
 }
 
 :root {
