@@ -1,10 +1,10 @@
 import React from 'react'
-import { Counter } from './components'
+import { TodoList } from './components'
 
 const AppExo = () => {
   return (
     <div className='flex justify-center items-center h-screen'>
-        <Counter />
+        <TodoList />
     </div>
   )
 }
