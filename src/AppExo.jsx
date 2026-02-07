@@ -1,10 +1,10 @@
 import React from 'react'
-import { TodoList } from './components'
+import Profile from './components/Profile'
 
 const AppExo = () => {
   return (
     <div className='flex justify-center items-center h-screen'>
-        <TodoList />
+        <Profile />
     </div>
   )
 }
