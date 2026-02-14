@@ -2,6 +2,7 @@
 // import useRandomLocation from "./useRandomLocation";
   // import Profile from "./components/Profile";
 import { ShoppingList } from "./components";
+import Seafood from "./components/Seafood";
 
 const AppExo = () => {
   // const [lat, setLat] = useState("");
@@ -16,7 +17,7 @@ const AppExo = () => {
   // };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 py-12 px-4">
       {/* <form onSubmit={findLocation}>
         <input type="text" name="longitude" placeholder="Longitude" />
         <input type="text" name="latitude" placeholder="Latitude" />
@@ -28,7 +29,8 @@ const AppExo = () => {
       )} */}
 
 {/* <Profile /> */}
-<ShoppingList />
+{/* <ShoppingList /> */}
+<Seafood />
     </div>
   );
 };
