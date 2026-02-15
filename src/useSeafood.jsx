@@ -1,40 +1,39 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function useSeafood() {
-    const [seafood, setSeafood] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [seafood, setSeafood] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const controller = new AbortController();
+  useEffect(() => {
+    const controller = new AbortController();
 
-        const fetchSeafood = async () => {
-            try {
-                const { data } = await axios.get(
-                    "https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood",
-                    { signal: controller.signal }
-                );
+    const fetchSeafood = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood",
+          { signal: controller.signal },
+        );
 
-                setSeafood(data.meals ?? []);
-            } catch (err) {
-                if (err.name !== "CanceledError") {
-                    setError(err);
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
+        setSeafood(data.meals ?? []);
+      } catch (err) {
+        if (err.name !== "CanceledError") {
+          setError(err);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchSeafood();
+    fetchSeafood();
 
-        return () => {
-            controller.abort();
-        };
-    }, []);
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
-
-    return { seafood, loading, error };
+  return { seafood, loading, error };
 }
 
 export default useSeafood;

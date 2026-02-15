@@ -12,7 +12,7 @@ function Seafood() {
       <SeafoodSkeleton />
     );
   }
-  
+
 
   if (error) {
     return (
