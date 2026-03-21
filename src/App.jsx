@@ -36,11 +36,11 @@ function App() {
             onChange={(e) => setInput(e.target.value)}
             type="text"
             placeholder="Ajouter une tâche..."
-            className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
+            className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white   focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
           />
           <button
             type="submit"
-            className="px-6 py-3 bg-slate-800 text-white rounded-xl font-medium hover:bg-slate-700 active:scale-95 transition-all shadow-sm"
+            className="px-6 py-3 bg-slate-800 text-white rounded-xl font-medium hover:bg-slate-700 active:scale-95 transition-all  "
           >
             Ajouter
           </button>
@@ -55,7 +55,7 @@ function App() {
             todos.map((todo, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm border border-slate-100 group hover:shadow-md transition-all"
+                className="flex items-center gap-3 p-4 bg-white rounded-xl   border border-slate-100 group hover:shadow-md transition-all"
               >
                 <button
                   onClick={() => toggleTodo(index)}
