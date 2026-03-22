@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { RoutePage } from './../router';
+import { RoutePage } from "../routes";
 
 export default function NotFound() {
   return (

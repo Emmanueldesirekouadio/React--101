@@ -6,13 +6,8 @@ import Contact from "./pages/Contact";
 import Universities from "./pages/Universities";
 import UniversityDetails from "./pages/UniversityDetails";
 import NotFound from "./pages/NotFound";
+import { RoutePage } from "./routes";
 
-export const RoutePage = {
-  HOME: "/",
-  ABOUT: "/about",
-  CONTACT: "/contact",
-  UNIVERSITIES: "/universities",
-};
 const router = createBrowserRouter([
   {
     path: RoutePage.HOME,
@@ -39,7 +34,7 @@ const router = createBrowserRouter([
         element: <Universities />,
       },
       {
-        path: "universities/:country/:name",
+        path: RoutePage.UNIVERSITY_DETAILS,
         element: <UniversityDetails />,
       },
       {

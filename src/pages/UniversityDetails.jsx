@@ -3,11 +3,12 @@ import useFetch from "../hooks/useFetch";
 import useFavorites from "../context/useFavorites";
 import { universityKey } from "../utils/universityKey";
 import UniversityDetailsSkeleton from "../components/UniversityDetailsSkeleton";
+import { RoutePage } from "../routes";
 
 function buildDetailsUrl(country, name) {
   const c = encodeURIComponent(country);
   const n = encodeURIComponent(name);
-  return ` http://universities.hipolabs.com/search?country=${c}&name=${n}`;
+  return `https://universities.hipolabs.com/search?country=${c}&name=${n}`;
 }
 
 export default function UniversityDetails() {
@@ -28,7 +29,10 @@ export default function UniversityDetails() {
   return (
     <div className="grid gap-4">
       <div className="flex items-center justify-between gap-3">
-        <Link className="text-sm font-semibold text-indigo-700 hover:text-indigo-800" to="/universities">
+        <Link
+          className="text-sm font-semibold text-indigo-700 hover:text-indigo-800"
+          to={RoutePage.UNIVERSITIES}
+        >
           ← Retour
         </Link>
         <button
@@ -42,9 +46,7 @@ export default function UniversityDetails() {
 
       {loading ? <UniversityDetailsSkeleton /> : null}
       {error ? (
-        <div className="text-sm font-medium text-red-600">
-          Erreur: {String(error?.message ?? error)}
-        </div>
+        <div className="text-sm font-medium text-red-600">Erreur: {String(error?.message ?? error)}</div>
       ) : null}
 
       {!loading && !error && !university ? (

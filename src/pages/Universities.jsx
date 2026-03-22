@@ -13,7 +13,7 @@ function buildUniversitiesUrl(country, name) {
 
   const c = encodeURIComponent(trimmedCountry);
   const n = encodeURIComponent(trimmedName);
-  return ` http://universities.hipolabs.com/search?country=${c}${trimmedName ? `&name=${n}` : ""}`;
+  return `https://universities.hipolabs.com/search?country=${c}${trimmedName ? `&name=${n}` : ""}`;
 }
 
 export default function Universities() {
@@ -53,9 +53,7 @@ export default function Universities() {
   return (
     <div className="grid gap-6">
       <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h1 className="text-xl font-extrabold tracking-tight text-slate-900">
-          Annuaire des universités
-        </h1>
+        <h1 className="text-xl font-extrabold tracking-tight text-slate-900">Annuaire des universités</h1>
         <p className="mt-2 text-sm text-slate-600">
           Recherche par pays (+ nom optionnel), ajout en favoris, et navigation vers une page détail.
         </p>

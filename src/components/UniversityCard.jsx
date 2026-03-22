@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useFavorites from "../context/useFavorites";
 import { universityKeyFromUniversity } from "../utils/universityKey";
+import { RoutePage } from "../routes";
 
 export default function UniversityCard({ university }) {
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -8,7 +9,7 @@ export default function UniversityCard({ university }) {
 
   const country = university?.country ?? "";
   const name = university?.name ?? "";
-  const linkTo = `/universities/${encodeURIComponent(country)}/${encodeURIComponent(name)}`;
+  const linkTo = RoutePage.universityDetails(country, name);
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">

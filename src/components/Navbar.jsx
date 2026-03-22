@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { RoutePage } from "../routes";
 
 function Navbar() {
   return (
@@ -8,16 +9,16 @@ function Navbar() {
           React-101
         </Link>
         <div className="h-5 w-px bg-slate-200" />
-        <Link className="text-slate-700 hover:text-slate-900" to="/">
+        <Link className="text-slate-700 hover:text-slate-900" to={RoutePage.HOME}>
           Accueil
         </Link>
-        <Link className="text-slate-700 hover:text-slate-900" to="/about">
+        <Link className="text-slate-700 hover:text-slate-900" to={RoutePage.ABOUT}>
           À propos
         </Link>
-        <Link className="text-slate-700 hover:text-slate-900" to="/contact">
+        <Link className="text-slate-700 hover:text-slate-900" to={RoutePage.CONTACT}>
           Contact
         </Link>
-        <Link className="text-slate-700 hover:text-slate-900" to="/universities">
+        <Link className="text-slate-700 hover:text-slate-900" to={RoutePage.UNIVERSITIES}>
           Annuaire
         </Link>
       </nav>

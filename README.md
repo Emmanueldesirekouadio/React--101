@@ -1,32 +1,89 @@
-# React + Vite
+# React-101 — Exercice “Annuaire des universités”
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Exercice de révision (niveau débutant) : routing, hooks, fetch API, context, et un peu de Tailwind.
 
-Currently, two official plugins are available:
+## Résultat attendu
+Vous devez obtenir :
+- `/universities` : recherche par **pays** (+ **nom** optionnel), skeleton pendant le chargement, favoris, filtre “favoris uniquement”
+- `/universities/:country/:name` : page détail (params d’URL) + favoris
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Démarrage
+```bash
+npm.cmd install
+npm.cmd run dev
+```
+Puis ouvrir `http://localhost:5173/universities`.
 
-## React Compiler
+## Données (API)
+Une **API** = une URL qui renvoie du JSON.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Ici :
+- `https://universities.hipolabs.com/search?country=Morocco`
+- `https://universities.hipolabs.com/search?country=France&name=tech`
 
-## Expanding the ESLint configuration
+> Postman (vu en cours) sert à tester ces URLs. Dans React, on fait pareil via `fetch`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Routes (autocomplétion)
+Toutes les routes sont centralisées dans `src/routes.js` :
+- `RoutePage.UNIVERSITIES`
+- `RoutePage.UNIVERSITY_DETAILS`
+- `RoutePage.universityDetails(country, name)` (génère le lien vers le détail)
 
-## Exercice: Annuaire des universités
+## Étapes d’implémentation (ordre conseillé)
 
-Route:
-- `http://localhost:5173/universities`
+### 1) Brancher les routes
+- Modifier `src/router.jsx`
+  - ajouter la page liste sur `RoutePage.UNIVERSITIES`
+  - ajouter la page détail sur `RoutePage.UNIVERSITY_DETAILS`
+  - garder une route `*` (404)
+- Vérifier le layout `src/layout/Layout.jsx` : le composant `<Outlet />` doit être présent (sinon aucune page ne s’affiche).
+- Mettre à jour la navbar `src/components/Navbar.jsx` pour utiliser `RoutePage.*` (pas de string “/about” en dur).
 
-Fonctionnalités (révision React):
-- Fetch API via `src/hooks/useFetch.js`
-- Recherche (country + name optionnel)
-- Favoris globaux via Context + persistance `localStorage`
-- Navigation vers une page détail (`/universities/:country/:name`)
-- Focus automatique sur l'input country (`useRef`)
+### 2) Mettre en place les favoris (global)
+- Provider : `src/context/FavoritesContext.jsx`
+  - stocke `favorites` et expose `toggleFavorite` + `isFavorite`
+  - (bonus déjà fait) persiste dans `localStorage`
+- Hook : `src/context/useFavorites.js` (permet d’utiliser facilement le contexte)
+- Important : brancher le provider dans `src/main.jsx` (sinon `useFavorites()` plante).
+- Clé stable : `src/utils/universityKey.js` (`country::name`)
 
-Commandes (Windows PowerShell):
-- `npm.cmd run dev`
-- `npm.cmd run build`
+### 3) Factoriser le fetch (custom hook)
+- Créer/compléter `src/hooks/useFetch.js`
+  - entrées : `url`
+  - sorties : `{ data, loading, error }`
+  - `useEffect` relance le fetch quand `url` change
+
+### 4) Implémenter la page Liste `/universities`
+Fichier : `src/pages/Universities.jsx`
+- États (`useState`) : `country`, `name`, `onlyFavorites`, `url`
+- Construire l’URL avec `encodeURIComponent` (si `country` est vide ⇒ `url = null`)
+- Déclencher la recherche au clic “Rechercher” : `setUrl(...)` (pas de fetch direct dans le bouton)
+- Affichage :
+  - `loading` ⇒ `src/components/UniversitiesSkeleton.jsx`
+  - `error` ⇒ message “Erreur: …”
+  - sinon ⇒ liste de cartes `src/components/UniversityCard.jsx`
+- `useRef` + `useEffect` : focus auto sur l’input “Pays”
+- Filtre favoris : si `onlyFavorites` est coché, n’afficher que les favoris
+
+UI utilisée :
+- `src/components/UniversitiesSearchBar.jsx` (inputs + boutons)
+- `src/components/UniversityCard.jsx` (bouton favoris + lien détail via `RoutePage.universityDetails(...)`)
+
+### 5) Implémenter la page Détail `/universities/:country/:name`
+Fichier : `src/pages/UniversityDetails.jsx`
+- Lire les params avec `useParams()`
+- Refaire un fetch avec ces params
+- `loading` ⇒ `src/components/UniversityDetailsSkeleton.jsx`
+- Bouton favoris (même logique que la liste)
+- Lien “Retour” vers `RoutePage.UNIVERSITIES`
+
+## Comment vérifier que c’est OK (checklist)
+- La liste s’affiche après “Rechercher”
+- Le skeleton apparaît pendant le chargement
+- Un clic “Détails” ouvre bien une nouvelle page avec l’URL `/universities/.../...`
+- Les favoris fonctionnent sur liste + détail, et le filtre “favoris uniquement” marche
+
+## En cas de blocage (méthode simple)
+1) Console : lire l’erreur
+2) Network : vérifier l’URL appelée
+3) Vérifier `country` non vide et paramètres encodés
